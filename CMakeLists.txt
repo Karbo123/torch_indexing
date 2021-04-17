@@ -9,6 +9,7 @@ find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/li
 
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --expt-relaxed-constexpr")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fno-gnu-unique") # https://github.com/pytorch/pytorch/issues/52663#issuecomment-809092114
 
 thrust_create_target(Thrust)
 

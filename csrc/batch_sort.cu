@@ -10,27 +10,9 @@ namespace py = pybind11;
 
 /////////////////////////////////////////////////////////////////////////////
 
-#define CHECK_CONTIGUOUS(x)                                                                        \
-    do                                                                                             \
-    {                                                                                              \
-        TORCH_CHECK(x.is_contiguous(), #x " must be a contiguous tensor");                         \
-    } while (0)
-
-
-#define CHECK_CUDA(x)                                                                              \
-    do                                                                                             \
-    {                                                                                              \
-        TORCH_CHECK(x.is_cuda(), #x " must be a CUDA tensor");                                     \
-    } while (0)
-
-/////////////////////////////////////////////////////////////////////////////
-
 template <typename FloatType, typename IndexType, typename SizeType, bool Increasing>
-void batchSort_kernel(FloatType *value,
-                      IndexType *batch,
-                      IndexType *index_out,
-                      SizeType length)
-{
+void batchSort_kernel(FloatType *value, IndexType *batch, IndexType *index_out, SizeType length)
+{   
     thrust::device_ptr<FloatType> value_ptr = thrust::device_pointer_cast(value);
     thrust::device_ptr<IndexType> batch_ptr = thrust::device_pointer_cast(batch);
     thrust::device_ptr<IndexType> index_ptr = thrust::device_pointer_cast(index_out);
@@ -45,13 +27,6 @@ void batchSort_kernel(FloatType *value,
 template <typename FloatType, typename IndexType, typename SizeType>
 void batchSort(torch::Tensor value, torch::Tensor batch, torch::Tensor index_out, bool increasing)
 {
-    CHECK_CONTIGUOUS(value);
-    CHECK_CONTIGUOUS(batch);
-    CHECK_CONTIGUOUS(index_out);
-    CHECK_CUDA(value);
-    CHECK_CUDA(batch);
-    CHECK_CUDA(index_out);
-
     FloatType* value_ptr     = value.data_ptr<FloatType>();
     IndexType* batch_ptr     = batch.data_ptr<IndexType>();
     IndexType* index_out_ptr = index_out.data_ptr<IndexType>();
