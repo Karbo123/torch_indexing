@@ -4,6 +4,7 @@ project(libtorch_indexing LANGUAGES CXX CUDA)
 find_package(CUDA REQUIRED)
 find_package(Torch REQUIRED)
 find_package(PythonLibs REQUIRED)
+find_package(TBB REQUIRED)
 find_package(Thrust REQUIRED) # finding thrust
 find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/lib")
 
@@ -11,7 +12,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --expt-relaxed-constexpr")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fno-gnu-unique") # https://github.com/pytorch/pytorch/issues/52663#issuecomment-809092114
 
-thrust_create_target(Thrust)
+thrust_create_target(Thrust HOST TBB DEVICE CUDA)
 
 file(GLOB SOURCES "/data/lei.jiabao/NIPS2021/recon/lib/torch_indexing/csrc/batch_sort.cu")
 add_library(${PROJECT_NAME} SHARED ${SOURCES})

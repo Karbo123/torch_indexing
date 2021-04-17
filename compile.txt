@@ -5,6 +5,8 @@ cmake .. \
 -DPYTHON_LIBRARY=$(python -c "import distutils.sysconfig as sysconfig; print(sysconfig.get_config_var('LIBDIR'))") \
 -DThrust_DIR="/data/lei.jiabao/NIPS2021/recon/lib/thrust-1.12.0/thrust/cmake" \
 -DCUB_DIR="/data/lei.jiabao/NIPS2021/recon/lib/cub-1.12.0/cub/cmake" \
+-DTBB_LIBRARY="/data/lei.jiabao/miniconda3/envs/recon180/lib/libtbb.so" \
+-DTBB_INCLUDE_DIR="/data/lei.jiabao/miniconda3/envs/recon180/include" \
 -DCMAKE_INCLUDE_PATH="/usr/local/cuda-11.1/targets/x86_64-linux/include"
 
 ln -s /data/lei.jiabao/NIPS2021/recon/lib/torch_indexing/build/libtorch_indexing.so /data/lei.jiabao/NIPS2021/recon/lib/torch_indexing/src/libtorch_indexing.so
