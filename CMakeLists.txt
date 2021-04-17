@@ -31,3 +31,19 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC ${TORCH_CXX_FLAGS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${TORCH_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${PYTHON_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CUDA_INCLUDE_DIRS})
+
+
+# to install
+string(REGEX REPLACE "lib" "" BARE_PROJECT_NAME ${PROJECT_NAME})
+install(CODE "execute_process(                                        \
+    COMMAND ${CMAKE_COMMAND} -E create_symlink                        \
+    ${PROJECT_SOURCE_DIR}/${BARE_PROJECT_NAME}                        \
+    ${CMAKE_INSTALL_PREFIX}/${BARE_PROJECT_NAME}                      \
+    )"
+)
+install(CODE "execute_process(                                        \
+    COMMAND ${CMAKE_COMMAND} -E create_symlink                        \
+    ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.so                            \
+    ${PROJECT_SOURCE_DIR}/${BARE_PROJECT_NAME}/src/${PROJECT_NAME}.so \
+    )"
+)
