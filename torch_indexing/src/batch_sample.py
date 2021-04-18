@@ -1,34 +1,25 @@
 import torch
+from .batch_sort import batch_sort
 
-@torch.jit.script
 def batch_sample(batch, num):
-    """ sample indices in batch
+    """ sample indices in batch (not repeat)
 
     Args:
-        batch (tensor): the batch index in ascending order, must be 1-D tensor
-        num (tensor): the num of samples for each batch, must be 1-D tensor
+        batch (tensor): the batch index in increasing order
+        num (tensor): the num of samples for each batch
     Returns:
-        ind (tensor): the sampled indices (1-D tensor)
+        index (tensor): the sampled indices (int64)
     """
+    assert batch[-1] + 1 == len(num), "num of batch does not match!"
+    assert batch.dtype in [torch.int64], "unsupported data type for `batch`!"
+    assert batch.device == num.device, "`batch` and `num` must be on the same device!"
+
     device = batch.device
-    rand_num = torch.rand_like(batch)
-    start_end_ind = torch.cat([torch.tensor([0], device=device), 
-                               torch.searchsorted(batch, torch.arange(batch[-1] + 1, device=device), right=True)], dim=0)
-    
-
-
-
-
-if __name__ == "__main__":
-
-    batch = torch.tensor([0, 0, 0, 
-                          1, 1, 1, 1, 1, 
-                          2, 2, 3, 2,
-                          3, 3, 3])
-    num = torch.tensor([3, 2, 2, 1])
-    ind = batch_sample(batch, num)
-    
-    print(f"batch = {batch}")
-    print(f"num   = {num}")
-    print(f"ind   = {ind}")
+    value = torch.rand(batch.shape, device=device)
+    start_ind = torch.repeat_interleave(torch.searchsorted(batch, torch.arange(len(num), device=device)), num)
+    ind = torch.arange(len(start_ind), device=device) - \
+            torch.repeat_interleave(torch.cat([torch.tensor([0], device=device), 
+                                               torch.cumsum(num, dim=0)[:-1]], dim=0), num)
+    index_out = batch_sort(value, batch)[start_ind + ind]
+    return index_out
 

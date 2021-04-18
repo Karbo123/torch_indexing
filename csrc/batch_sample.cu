@@ -1,5 +1,0 @@
-/*
-    sample in batch
-*/
-
-

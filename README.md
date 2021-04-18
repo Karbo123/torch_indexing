@@ -6,7 +6,8 @@ It is designed for high performance, all its functions are implemented by both [
 # Functions
 
 Currently implemented functions:
-- **batch sort**: sort 1-D tensor in batch
+- **batch sort**: sort in batch (1-D tensor)
+- **batch sample**: randomly sample in batch without repeat (1-D tensor)
 
 # Build
 
