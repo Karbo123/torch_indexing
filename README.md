@@ -23,6 +23,9 @@ My development environment:
 
 Compiling example:
 ```bash
+# create folder
+mkdir build && cd build
+
 # configure
 cmake .. \
 -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cmake_prefix_path)'` \
@@ -35,7 +38,6 @@ cmake .. \
 -DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'`
 
 # build
-mkdir build && cd build
 make -j8
 
 # install as conda package (NOTE: after installation, please do not delete the folder)
