@@ -1,6 +1,6 @@
 # Auxiliary library for advanced pytorch tensor indexing
 
-It is designed for high performance, all its functions are implemented by both [TBB](https://software.intel.com/en-us/intel-tbb) and [CUDA](https://developer.nvidia.com/cuda-zone).
+All its functions are implemented on both CPU and CUDA with parallel computation.
 
 
 # Functions
