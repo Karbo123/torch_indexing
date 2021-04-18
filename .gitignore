@@ -1,3 +1,4 @@
 build
 *.so
 .pytest_cache
+_play

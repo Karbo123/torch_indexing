@@ -4,6 +4,7 @@ project(libtorch_indexing LANGUAGES CXX CUDA)
 find_package(CUDA REQUIRED)
 find_package(Torch REQUIRED)
 find_package(PythonLibs REQUIRED)
+find_package(Boost REQUIRED)
 find_package(TBB REQUIRED)
 find_package(Thrust REQUIRED) # finding thrust
 find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/lib")
@@ -28,9 +29,10 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC TORCH_EXTENSION_NAME=${PROJECT
 target_compile_definitions(${PROJECT_NAME} PUBLIC TORCH_API_INCLUDE_EXTENSION_H)
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TORCH_CXX_FLAGS})
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/csrc)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CUDA_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${TORCH_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${PYTHON_INCLUDE_DIRS})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CUDA_INCLUDE_DIRS})
 
 
 # to install
