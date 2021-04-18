@@ -14,9 +14,9 @@ def batch_sort(value, batch, increasing=True, dtype_out=torch.int64):
     Returns:
         index (tensor): the index to sort
     """
-    assert value.dtype in [torch.float32, torch.float64, torch.int32, torch.int64], "unsupported data type for `value`!"
-    assert batch.dtype in [torch.int32, torch.int64], "unsupported data type for `batch`!"
-    assert dtype_out   in [torch.int32, torch.int64], "unsupported data type for output index!"
+    assert value.dtype in [torch.float32, torch.float64], "unsupported data type for `value`!"
+    assert batch.dtype in [torch.int64], "unsupported data type for `batch`!"
+    assert dtype_out   in [torch.int64], "unsupported data type for output index!"
     assert value.device == batch.device, "`value` and `batch` must be on the same device!"
     
     index_out = torch.arange(len(batch), device=batch.device, dtype=dtype_out)

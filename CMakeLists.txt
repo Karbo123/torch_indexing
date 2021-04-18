@@ -15,7 +15,7 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -fno-gnu-unique") # https:/
 
 thrust_create_target(Thrust HOST TBB DEVICE CUDA)
 
-file(GLOB SOURCES "/data/lei.jiabao/NIPS2021/recon/lib/torch_indexing/csrc/batch_sort.cu")
+file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/csrc/batch_sort.cu")
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

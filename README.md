@@ -1,10 +1,12 @@
 # Auxiliary library for advanced pytorch tensor indexing
 
+It is designed for high performance, all its functions are implemented by both [TBB](https://software.intel.com/en-us/intel-tbb) and [CUDA](https://developer.nvidia.com/cuda-zone).
+
 
 # Functions
 
 Currently implemented functions:
-- **batch sort** (CPU + CUDA): sort 1-D tensor in batch
+- **batch sort**: sort 1-D tensor in batch
 
 # Build
 
@@ -14,7 +16,9 @@ My development environment:
 - nvcc: 11.2
 - thrust: 1.12.0
 - cub: 1.12.0
+- tbb: 2020.3
 - cmake: 3.18.4
+
 
 Compiling example:
 ```bash
@@ -30,12 +34,14 @@ cmake .. \
 -DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'`
 
 # build
+mkdir build && cd build
 make -j8
 
 # install as conda package (NOTE: after installation, please do not delete the folder)
 make install
 ```
 
-# API and Usage
+# Examples
 
-TBD
+Please check our test scripts for details.
+

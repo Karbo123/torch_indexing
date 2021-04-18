@@ -105,3 +105,13 @@ struct get_type_names
     static constexpr std::string_view value {arr.data(), arr.size() - 1};
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// policy to execute
+
+// #include <thrust/execution_policy.h>
+// // template<bool CUDA> constexpr decltype(thrust::device) policy<CUDA>;
+// template<> constexpr decltype(thrust::device) POLICY<true>;
+// template<> constexpr decltype(thrust::device) POLICY<true>  = thrust::device;
+// template<> constexpr decltype(thrust::host) POLICY<false> = thrust::host;
+
+
