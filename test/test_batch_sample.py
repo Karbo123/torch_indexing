@@ -12,3 +12,6 @@ def test():
     assert index[255:256].min() >= 305 and index[255:256].max() < 335
     assert index[256:956].min() >= 335 and index[256:956].max() < 1335
 
+
+if __name__ == "__main__":
+    test()

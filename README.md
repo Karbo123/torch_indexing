@@ -35,7 +35,8 @@ cmake .. \
 -DCUB_DIR="`pwd`/../../cub-1.12.0/cub/cmake" \
 -DTBB_LIBRARY="$CONDA_PREFIX/lib/libtbb.so" \
 -DTBB_INCLUDE_DIR="$CONDA_PREFIX/include" \
--DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'`
+-DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'` \
+-DCMAKE_CUDA_ARCHITECTURES=86
 
 # build
 make -j8
