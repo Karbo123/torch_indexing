@@ -49,3 +49,7 @@ make install
 
 Please check our test scripts for details.
 
+# TODO list
+
+- [ ] Performance problem of thrust's CUDA sorting used in batch_sort function
+

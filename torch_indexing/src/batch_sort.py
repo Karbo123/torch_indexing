@@ -2,24 +2,25 @@
 """
 import torch
 from .helper import get_kernel
+from torch_scatter import scatter
 
-
-def batch_sort(value, batch, increasing=True, baseline=False):
+def batch_sort(value, batch, increasing=True, baseline="auto"):
     """ sort value in batch, and return the index
     
     Args:
         value (tensor): the value to sort
         batch (tensor): the batch index in increasing order
         increasing (bool): whether to sort in increasing order
-        baseline (bool): baseline is to use pure pytorch implementation
+        baseline (bool or "auto"): baseline is to use pure pytorch implementation
     Returns:
         index (tensor): the index to sort (int64)
     """
     assert value.dtype in [torch.float32, torch.float64], "unsupported data type for `value`!"
     assert batch.dtype in [torch.int64], "unsupported data type for `batch`!"
     assert value.device == batch.device, "`value` and `batch` must be on the same device!"
+    if baseline == "auto": baseline = batch.is_cuda() # if CUDA, use baseline
     if baseline: return batch_sort_baseline(value, batch, increasing)
-    
+
     index_out = torch.arange(len(batch), device=batch.device)
     kernel = get_kernel("batch_sort_kernel", value.dtype, batch.dtype, torch.int64)
     kernel(value.clone(), batch.clone(), index_out, increasing) # change in place
@@ -27,7 +28,6 @@ def batch_sort(value, batch, increasing=True, baseline=False):
 
 
 def batch_sort_baseline(value, batch, increasing=True):
-    from torch_scatter import scatter
     device = batch.device
     with torch.no_grad():
         num          = scatter(torch.ones(len(value), device=device, dtype=torch.int64), batch, reduce="sum")
