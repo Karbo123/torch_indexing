@@ -6,8 +6,16 @@ All its functions are implemented on both CPU and CUDA with parallel computation
 # Functions
 
 Currently implemented functions:
-- **batch sort**: sort in batch (1-D tensor)
+- **batch sort**: sort in batch with stablity (1-D tensor)
 - **batch sample**: randomly sample in batch without repeat (1-D tensor)
+- **stable argsort**: argsort with stablity (1-D tensor)
+
+# Benchmarking
+
+1. batch sort
+   - CUDA: Ours (**0.0025** sec.) < Baseline (0.1006 sec.)
+   - CPU: Ours (**0.0236** sec.) < Baseline (0.0622 sec.)
+
 
 # Build
 
@@ -48,6 +56,7 @@ make install
 # Examples
 
 Please check our test scripts for details.
+
 
 # TODO list
 

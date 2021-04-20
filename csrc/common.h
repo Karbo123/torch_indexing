@@ -15,8 +15,9 @@ namespace py = pybind11;
 
 template <typename...> struct type_list {};
 using f4f8_list = type_list<float, double>;
+using f4f8i4i8_list = type_list<float, double, int32_t, int64_t>;
 using i8_list   = type_list<int64_t>;
 
 using f4f8_i8_i8_pairs = mp11::mp_product<type_list, f4f8_list, i8_list, i8_list>;
-
+using f4f8i4i8_i8_i8_pairs = mp11::mp_product<type_list, f4f8i4i8_list, i8_list, i8_list>;
 

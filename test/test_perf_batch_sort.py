@@ -11,7 +11,7 @@ def test(): # NOTE For CUDA, baseline is faster; for CPU, ours is faster.
         batch = torch.repeat_interleave(torch.arange(100), num).to(device=device)
         value = torch.rand(num.sum()).to(device=device)
 
-        N_REPEAT = 10
+        N_REPEAT = 100
         time_list_ours, time_list_torch = list(), list()
         for i in range(N_REPEAT):
             t0 = time.time()
