@@ -18,7 +18,7 @@ def batch_sort(value, batch, increasing=True, baseline="auto"):
     assert value.dtype in [torch.float32, torch.float64], "unsupported data type for `value`!"
     assert batch.dtype in [torch.int64], "unsupported data type for `batch`!"
     assert value.device == batch.device, "`value` and `batch` must be on the same device!"
-    if baseline == "auto": baseline = batch.is_cuda() # if CUDA, use baseline
+    if baseline == "auto": baseline = batch.is_cuda # if CUDA, use baseline
     if baseline: return batch_sort_baseline(value, batch, increasing)
 
     index_out = torch.arange(len(batch), device=batch.device)
