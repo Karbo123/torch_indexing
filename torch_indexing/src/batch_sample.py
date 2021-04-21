@@ -2,13 +2,13 @@ import torch
 import random
 from .batch_sort import batch_sort
 
-def batch_sample(batch, num, baseline="auto", deterministic=False):
+def batch_sample(batch, num, baseline=False, deterministic=False):
     """ sample indices in batch (not repeat)
 
     Args:
         batch (tensor): the batch index in increasing order
         num (tensor): the num of samples for each batch
-        baseline (bool or "auto"): baseline is to use pure pytorch implementation
+        baseline (bool): baseline is to use pure pytorch implementation
         deterministic (bool): whether produce the same result (fix the seed)
     Returns:
         index (tensor): the sampled indices (int64)

@@ -20,9 +20,9 @@ Currently implemented functions:
 # Build
 
 My development environment:
-- pytorch: 1.8.0+cu111 (installed by pip)
-- cuda: 11.2
-- nvcc: 11.2
+- pytorch: 1.8.0+cu101 (installed by pip)
+- gcc: 7.3.0
+- nvcc: 10.2.89
 - thrust: 1.12.0
 - cub: 1.12.0
 - tbb: 2020.3
@@ -44,7 +44,9 @@ cmake .. \
 -DTBB_LIBRARY="$CONDA_PREFIX/lib/libtbb.so" \
 -DTBB_INCLUDE_DIR="$CONDA_PREFIX/include" \
 -DCMAKE_INSTALL_PREFIX=`python -c 'from distutils.sysconfig import get_python_lib; print(get_python_lib())'` \
--DCMAKE_CUDA_ARCHITECTURES=86
+-DCMAKE_CUDA_ARCHITECTURES=75 \
+-DCUDA_TOOLKIT_ROOT_DIR=$CU102_CUDA_TOOLKIT_DIR
+
 
 # build
 make -j8

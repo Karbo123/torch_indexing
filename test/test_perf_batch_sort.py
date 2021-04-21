@@ -5,7 +5,7 @@ import time
 import torch
 from torch_indexing import batch_sort
 
-def test(): # NOTE For CUDA, baseline is faster; for CPU, ours is faster.
+def test():
     for device in ["cuda", "cpu"]:
         num = torch.randint(low=5, high=10000, size=(100, ))
         batch = torch.repeat_interleave(torch.arange(100), num).to(device=device)
