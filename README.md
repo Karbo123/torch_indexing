@@ -60,5 +60,5 @@ Please check our test scripts for details.
 
 # TODO list
 
-- [ ] More functions to be implemented
+- [ ] More functions to be implemented (e.g. CUDA-KDTree)
 
