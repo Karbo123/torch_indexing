@@ -4,7 +4,6 @@ project(libtorch_indexing LANGUAGES CXX CUDA)
 find_package(CUDA REQUIRED)
 find_package(Torch REQUIRED)
 find_package(PythonLibs REQUIRED)
-find_package(Boost REQUIRED)
 find_package(TBB REQUIRED)
 find_package(Thrust REQUIRED) # finding thrust
 find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/lib")
@@ -18,7 +17,7 @@ thrust_create_target(Thrust HOST TBB DEVICE CUDA)
 file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/csrc/*.cu")
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
 set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 

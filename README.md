@@ -13,8 +13,8 @@ Currently implemented functions:
 # Benchmarking
 
 1. batch sort
-   - CUDA: Ours (**0.0025** sec.) < Baseline (0.1006 sec.)
-   - CPU: Ours (**0.0236** sec.) < Baseline (0.0622 sec.)
+   - CUDA: Ours (**0.0029** sec.) < Baseline (0.0891 sec.)
+   - CPU: Ours (**0.0374** sec.) < Baseline (0.0915 sec.)
 
 
 # Build

@@ -30,21 +30,4 @@ namespace batch_sort
         bool is_cuda = value.is_cuda();
         batchSort_kernel<ValueType, IndexType, SizeType>(value_ptr, batch_ptr, index_out_ptr, length, increasing, is_cuda);
     }
-
-
-    /////////////////////////////////////////////////////////////////////////////
-    // binding function
-    template <typename Tx, typename Ty, typename Tz> 
-    void inject_fn(py::module_& m, const type_list<Tx, Ty, Tz>&) 
-    {
-        static constexpr std::string_view base_name = "batch_sort_kernel_";
-        static constexpr auto function_name = get_type_names<base_name, Tx, Ty, Tz>::value.data();
-        m.def(function_name, &batchSort<Tx, Ty, Tz>,
-                              py::arg("value"), 
-                              py::arg("batch"),
-                              py::arg("index_out"),
-                              py::arg("increasing"));
-    }
 }
-
-

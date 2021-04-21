@@ -6,9 +6,15 @@
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m)
 {
     // batch_sort
-    mp11::mp_for_each<f4f8i4i8_i8_i8_pairs>([&](const auto& x) { batch_sort::inject_fn(m, x); });
+    m.def("batch_sort_kernel_[f4,i8,i8]", batch_sort::batchSort<f4,i8,i8>, py::arg("value"), py::arg("batch"), py::arg("index_out"), py::arg("increasing"));
+    m.def("batch_sort_kernel_[f8,i8,i8]", batch_sort::batchSort<f8,i8,i8>, py::arg("value"), py::arg("batch"), py::arg("index_out"), py::arg("increasing"));
+    m.def("batch_sort_kernel_[i4,i8,i8]", batch_sort::batchSort<i4,i8,i8>, py::arg("value"), py::arg("batch"), py::arg("index_out"), py::arg("increasing"));
+    m.def("batch_sort_kernel_[i8,i8,i8]", batch_sort::batchSort<i8,i8,i8>, py::arg("value"), py::arg("batch"), py::arg("index_out"), py::arg("increasing"));
 
-    // stable_sort
-    mp11::mp_for_each<f4f8i4i8_i8_i8_pairs>([&](const auto& x) { stable_argsort::inject_fn(m, x); });
+    // stable_argsort
+    m.def("stable_argsort_kernel_[f4,i8,i8]", stable_argsort::stableArgsort<f4,i8,i8>, py::arg("value"), py::arg("index_out"), py::arg("increasing"));
+    m.def("stable_argsort_kernel_[f8,i8,i8]", stable_argsort::stableArgsort<f8,i8,i8>, py::arg("value"), py::arg("index_out"), py::arg("increasing"));
+    m.def("stable_argsort_kernel_[i4,i8,i8]", stable_argsort::stableArgsort<i4,i8,i8>, py::arg("value"), py::arg("index_out"), py::arg("increasing"));
+    m.def("stable_argsort_kernel_[i8,i8,i8]", stable_argsort::stableArgsort<i8,i8,i8>, py::arg("value"), py::arg("index_out"), py::arg("increasing"));
 }
 
