@@ -57,7 +57,46 @@ make install
 
 # Examples
 
-Please check our test scripts for details.
+1. batch argsort
+```python
+import torch
+from torch_indexing import batch_sort
+value = torch.tensor([0.5, 0.7, 0.6, 0.9, 0.8], device="cuda")
+batch = torch.tensor([0, 0, 0, 1, 1], device="cuda")
+print(batch_sort(value, batch, increasing=True)) 
+# printing:
+# tensor([0, 2, 1, 4, 3], device='cuda:0')
+#         ^  ^  ^         batch==0
+#                  ^  ^   batch==1
+```
+
+2. batch sample
+```python
+import torch
+from torch_indexing import batch_sample
+batch = torch.tensor([0, 0, 0, 0, 0, 1, 1, 1, 2, 2], device="cuda")
+# randomly sample 3 items from batch==0
+# randomly sample 2 items from batch==1
+# randomly sample 2 items from batch==2
+num   = torch.tensor([3, 2, 2], device="cuda")
+print(batch_sample(batch, num))
+# printing:
+# tensor([1, 0, 3, 6, 5, 9, 8], device='cuda:0')
+#         ^  ^  ^               batch==0 (3 items)
+#                  ^  ^         batch==1 (2 items)
+#                        ^  ^   batch==2 (2 items)
+```
+
+3. stable argsort
+```python
+import torch
+from torch_indexing import argsort
+value = torch.tensor([0.5, 0.4, 0.4, 0.4, 0.7, 0.1], device="cuda")
+print(argsort(value, increasing=True, stable=True))
+# printing:
+# tensor([5, 1, 2, 3, 0, 4], device='cuda:0')
+#            ^  ^  ^         preserving order
+```
 
 
 # TODO list
