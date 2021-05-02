@@ -18,7 +18,8 @@ def argsort(value, increasing=True, stable=False):
 
         index_out = torch.arange(len(value), device=value.device)
         kernel = get_kernel("stable_argsort_kernel", value.dtype, torch.int64, torch.int64)
-        kernel(value.clone(), index_out, increasing) # change in place
+        value_clone = value.clone() # you must explicitly clone
+        kernel(value_clone, index_out, increasing) # change in place
         return index_out
 
     return torch.argsort(value, dim=0, descending=(not increasing))

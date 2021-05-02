@@ -22,7 +22,9 @@ def batch_sort(value, batch, increasing=True, baseline=False):
 
     index_out = torch.arange(len(batch), device=batch.device)
     kernel = get_kernel("batch_sort_kernel", value.dtype, batch.dtype, torch.int64)
-    kernel(value.clone(), batch.clone(), index_out, increasing) # change in place
+    value_clone = value.clone() # you must explicitly clone
+    batch_clone = batch.clone() # you must explicitly clone
+    kernel(value_clone, batch_clone, index_out, increasing) # change in place
     return index_out
 
 
